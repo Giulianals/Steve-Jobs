@@ -1,48 +1,65 @@
 package com.company;
 import java.util.Scanner;
-    public class Oracolo {
+    public class Carta {
 
-            private String vecchiaRisposta = "La risposta e' nel tuo cuore.";
-            private String nuovaRisposta;
-            private String domanda;
+        private String nome;
+        private String cognome;
+        private int codice;
+        private int numerocarta;
+        private int scadenzamese;
+        private int scadenzaanno;
+        private int soldiresidui;
 
-        public void parla() {
-            System.out.print("Sono l'oracolo. ");
-            System.out.println("Risponderò' a qualsiasi domanda che " +
-                    "digiterai su una riga.");
-            Scanner tastiera = new Scanner(System.in);
-            String risposta;
-            do {
-                rispondi();
-                System.out.println("Vuoi pormi un'altra domanda?");
-                risposta = tastiera.next();
-            }
-                while (risposta.equalsIgnoreCase("si"));
-                System.out.println("L'oracolo ora riposa.");
-          private void rispondi() {
-                System.out.println("Qual e' la tua domanda?");
-                Scanner tastiera = new Scanner(System.in);
-                domanda = tastiera.nextLine();
-                cercaSuggerimento();
 
-                System.out.println("Hai posto la domanda:");
-                System.out.println(" " + domanda);
-                System.out.println("Ora ecco la mia risposta:");
-                System.out.println(" " + vecchiaRisposta);
-                aggiorna();
-            }
-            private void cercaSuggerimento () {
-                System.out.println("Hmm, ho bisogno di aiuto su questo.");
-                System.out.println("Scrivimi una riga di aiuto.");
-                Scanner tastiera = new Scanner(System.in);
-                nuovaRisposta = tastiera.nextLine();
-                System.out.println("Grazie. Mi ha aiutato molto");
-            }
-            private void aggiornai () {
-                vecchiaRisposta = nuovaRisposta;
-            }
+
+
+        public void setNome(String N){ //metodo set
+            this.nome=N;
+        }
+        public void setCognome(String C){
+            this.cognome=C;
+        }
+        public void setsoldiresidui(int S){
+            this.soldiresidui=S;
+        }
+        public void setcodice(int P){
+            this.codice=P;
+        }
+        public void setscadenza(int R){
+            this.scadenzamese=R;
+        }
+        public void setscadenzaanno(int Q){
+            this.scadenzaanno=Q;
+        }
+        public void setnumerocarta(int num){
+            this.numerocarta=num;
         }
 
+        public String getNome() {
+            return nome;
+        }
 
+        public String getCognome() {
+            return cognome;
+        }
 
-}
+        public int getNumerocarta() {
+            return numerocarta;
+        }
+
+        public int getCodice() {
+            return codice;
+        }
+
+        public int getScadenzaanno() {
+            return scadenzaanno;
+        }
+
+        public int getScadenzamese() {
+            return scadenzamese;
+        }
+
+        public int getSoldiresidui() {
+            return soldiresidui;
+        }
+    }
