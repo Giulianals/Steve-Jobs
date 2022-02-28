@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 14 12:19:32 2022
+
+@author: giulianalaspina
+"""
+
+import numpy as np
+import pandas as pd 
+from matplotlib import pyplot as plt
+
+W=pd.read_csv("wine.data", header=None)
+
+
+pd.plotting.scatter_matrix(W)
+
+#creo un dataframe con solo le colonne che mi interessano
+W2=W.iloc[:,6:8]
+pd.plotting.scatter_matrix(W2)
+
+#regressione: calcolare la varibile regressa a partire dal regressore 
+#dalla variabile 7 alla 6 
+
+#regressione alla media (tra la riga 6 e la riga sette)
+#dobbiamo importare una libreria
+from sklearn.linear_model import LinearRegression
+
+#vogliamo una formula per calcolare un'approssimazione della colonna 7 a partire dalla colonna 6
+#regressa colonna 7, regressore colonna 6
+
+#creo un calcolatore delle formule per la regressione
+R=LinearRegression()
+
+#creare una varibile che funga da regressore
+regressore=W2.iloc[:, 0]
+#controlliamo la forma della colonna
+
+regressore.shape
+
+#sistemiamo la shape
+#dalla serie ricaviamo i valori e li riformiamo con reshape in una tabella di 178 righe e una colonna
+regressore=regressore.values.reshape(178,1)
+
+#creare la regressa allo stesso modo
+regressa=W2.iloc[:,1].values.reshape(178,1)
+
+
+#calcolare la formula di previsione : REGRESSIONE DI PRIMO GRADO O LINEARE
+
+M=R.fit(regressore, regressa)
+
+print(M.coef_)
+print(M.intercept_)
+
+#utilizzando l'equazione regressa = coef*regressore+intercept fa una stima della regressa
+z=M.predict(regressore)
+plt.figure()
+plt.plot(regressore,regressa, "ob", markersize=10)
+plt.plot(regressore, z, "or")
+
+#punti blu sono i miei
+#punti rossi sono le stime 
+
+
+#calcoliamo la correlazione in W2
+print(W2.corr())
+#0.86 correlazione positiva forte
+
+#valutiamo la qualità della previsione che abbiamo ottenuto con la regressione
+M.score(regressore, regressa)
+#0.74 è lo score che è un indicatore che varia tra 0 e 1 
+#0 previsione sbagliata
+#1 previsione perfetta
+#si accettano solo previsione sopra 0.65
+
+
+#in matematica si chiama coefficiente di determinazione o R-quadro
+
+
+
+
+#esaminiamo un caso in cui la regressione fallisce
+W3=pd.DataFrame({0:W.iloc[:,1],1:W.iloc[:,8]})
+pd.plotting.scatter_matrix(W3)
+
+W3.corr()
+
+R=LinearRegression()
+
+#creare una varibile che funga da regressore
+regressore=W3.iloc[:, 0]
+#controlliamo la forma della colonna
+
+regressore.shape
+
+#sistemiamo la shape
+#dalla serie ricaviamo i valori e li riformiamo con reshape in una tabella di 178 righe e una colonna
+regressore=regressore.values.reshape(178,1)
+
+#creare la regressa allo stesso modo
+regressa=W3.iloc[:,1].values.reshape(178,1)
+
+
+#calcolare la formula di previsione : REGRESSIONE DI PRIMO GRADO O LINEARE
+
+M=R.fit(regressore, regressa)
+
+print(M.coef_)
+print(M.intercept_)
+
+#utilizzando l'equazione regressa = coef*regressore+intercept fa una stima della regressa
+z=M.predict(regressore)
+plt.figure()
+plt.plot(regressore,regressa, "ob", markersize=10)
+plt.plot(regressore, z, "or")
+
+#punti blu sono i miei
+#punti rossi sono le stime 
+
+
+#calcoliamo la correlazione in W2
+print(W3.corr())
+#0.86 correlazione positiva forte
+
+#valutiamo la qualità della previsione che abbiamo ottenuto con la regressione
+M.score(regressore, regressa)
+
+#lo score troppo piccolo è inutile 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

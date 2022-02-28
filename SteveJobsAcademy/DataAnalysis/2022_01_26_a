@@ -1,0 +1,82 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+#strutture fondamentali
+#liste
+L=[1,2,3]
+
+#tuple, come le liste ma più rigide e qualche metodo in meno
+T=(1,2,3)
+
+#set
+S={1,2,3}
+
+#tuple e liste sono ordinate
+#i valori della lista possono essere cambiate
+#le tuple sono immutabili, non possono cambiare i singoli elementi 
+#nelle tuple possono cambiare tutto 
+
+
+#dir (con oggetto) mi da tutte le operazioni che possono fare con  quell'oggetto
+
+
+#dizionari
+#si creano tra parentesi graffe, i blocchi sono coppie chiave:valore
+D={"a":1, "b":2, "c":3}
+type(D)
+
+
+dir (D)
+#svuota la lista
+D.clear()
+len(D)
+
+D={"a":1, "b":2, "c":3}
+#i dizionari non hanno indici ma solo chiavi
+D["a"]
+#per aggiungere un elemento:
+D["d"]=4    
+#posso controlla presenza di una chiave con "in"
+"a" in D
+1 in D #non si può ceracre un valore con in
+
+
+chiavi=D.keys()  #fornisce la lista delle chiavi
+type(chiavi)
+
+valori=D.values()  #lista dei valori
+type(valori)
+
+
+D.pop("c")
+D.pop("f")
+
+D["c"]=7
+
+#restituisce una lista di tuple 
+D.items()
+
+K=["tavolo", "sedia", "armadio"]
+V=["table", "chair", "closet"]
+D.fromkeys(K,V)
+
+
+
+#vogliamo creare un dizionario che assegni parole italiane da una lista coon
+#chiavu a parole inglesi da una lista come valori
+italiano=["albero", "sedia", "scrivania"]
+inglese=["tree", "chair", "desk"]
+
+
+E={}
+for parola in italiano:
+    E[parola]=inglese[italiano.index(parola)]
+    
+F=E   #assegnato alla variabile lo stesso valore del valore E
+#non ho creato un nuovodizionario ma ho cambiato il nome del dizionario che avevo
+
+F["albero"]="cucuzza"

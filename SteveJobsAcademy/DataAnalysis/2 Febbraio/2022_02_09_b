@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb  9 12:02:42 2022
+
+@author: giulianalaspina
+"""
+
+import numpy as np
+from matplotlib import pyplot as plt
+
+import pandas as pd
+
+
+x=np.linspace(0,10,100)
+y=np.cos(x)
+
+z=np.sin(x)
+
+
+#disegnamo il grafico
+
+plt.figure("il mio grafico")
+plt.title("un esempio di funzioni armoniche", fontsize=24, color="red")
+plt.plot(x, y)
+
+plt.plot(x, z)
+
+
+plt.xlabel("variabile indipendente", fontsize=14, color="red")
+plt.ylabel("variabile dipendente", fontsize=14, color="blue")
+
+plt.grid(True)
+plt.xlim([-2,12])
+plt.ylim([-2,2])
+plt.xticks(np.arange(-2, 12,1))
+plt.yticks(np.arange(-2,2,.1))
+plt.legend(["cos(x)", "sin(y)"],fontsize=14)
+
+
+plt.text(1.5, 1.0, "punto di massimo")
+plt.show()
+
+
+plt.figure("in stile matlab")
+plt.plot(x,y,"xk", markersize=24)
+
+
+#applochiamolo ai Dataframe
+DF = pd.read_csv("Height of Male and Female by Country 2022 - Height of Male and Female by Co.csv")
+
+
+
+DF2=pd.DataFrame({"nazione":DF.iloc[:,1],"male_h":DF.iloc[:,2],"female_h":DF.iloc[:,3]})
+MF=(DF2["male_h"]>=DF2["male_h"].mean())&(DF2["female_h"]>=DF2["female_h"].mean())
+
+
+
+plt.figure("dati altezze MF")
+plt.plot(DF2.male_h, DF2.female_h, "ok", markersize=5)
+
+
+#disegnare per gruppi
+DF = pd.read_csv("Height of Male and Female by Country 2022 - Height of Male and Female by Co.csv")
+
+
+
+DF2=pd.DataFrame({"nazione":DF.iloc[:,1],"male_h":DF.iloc[:,2],"female_h":DF.iloc[:,3]})
+MF=(DF2["male_h"]>=DF2["male_h"].mean())&(DF2["female_h"]>=DF2["female_h"].mean())
+
+
+
+plt.figure("per gruppi")
+plt.plot(DF2["male_h"][MF], DF2["female_h"][MF], "ok", markersize=5)
+plt.show()
+
+
+

@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Feb  9 09:05:00 2022
+
+@author: giulianalaspina
+"""
+
+import pandas as pd
+import numpy as np
+
+
+import os
+
+# percorso assoluto di questo script
+abspath = os.path.abspath("2022_02_09.py")
+dname = os.path.dirname(abspath)  # directoy di questo script
+os.chdir(dname)
+
+DF = pd.read_csv("Height of Male and Female by Country 2022 - Height of Male and Female by Co.csv")
+DF.info()
+DF.head()
+DF.tail()
+DF.iloc[0,:]
+DF2=pd.DataFrame({"nazione":DF.iloc[:,1],"male_h":DF.iloc[:,2],"female_h":DF.iloc[:,3]})
+
+DF2.describe()
+
+DF2.plot.box()
+DF2.hist()
+DF2.hist(bins=5)
+
+denominatore=DF2["male_h"].max()-DF2["male_h"].min()
+DF2["mn"]=(DF2["male_h"]-DF2["male_h"].min())/denominatore
+
+denominatore=DF2["female_h"].max()-DF2["female_h"].min()
+DF2["fn"]=(DF2["female_h"]-DF2["female_h"].min())/denominatore
+
+DF2.plot.box()
+DF2.mn.plot.box()
+DF2.fn.plot.box()
+DF2[["mn","fn"]].plot.box()
+
+DF2["mz"]=(DF2["male_h"]-DF2["male_h"].mean())/DF2["male_h"].std()
+DF2["fz"]=(DF2["female_h"]-DF2["female_h"].mean())/DF2["female_h"].std()
+DF2[["mz","fz"]].plot.box()
+
+
+
+# esercizio sui voti di due moduli
+voti1=np.array([7,6,6,7])
+voti2=np.array([9,8,9,6])
+m1=voti1.mean()
+m2=voti2.mean()
+s1=voti1.std()
+s2=voti2.std()
+
+z1=(voti1-m1)/s1
+z2=(voti2-m2)/s2
+
+rank=z1+z2
+
+DF2["mz"].plot()
+DF2["fz"].plot()
+DF2["male_h"].plot()
+DF2["female_h"].plot()
+
+MF=(DF2["mz"]>=0)&(DF2["fz"]>=0)
+mf=(DF2["mz"]<0)&(DF2["fz"]<0)
+Mf=(DF2["mz"]>=0)&(DF2["fz"]<0)
+mF=(DF2["mz"]<0)&(DF2["fz"]>=0)
+type(MF)
+MF.describe()
+print("le nazioni ++ sono {}".format(MF.sum()))
+print("le nazioni -- sono {}".format(mf.sum()))
+print("le nazioni +- sono {}".format(Mf.sum()))
+print("le nazioni -+ sono {}".format(mF.sum()))
+
+DF2["nazione"][mF]
+DF2["nazione"][Mf]
+DF2[DF2["nazione"]=="Italy"]
+
+DF2.info()
+DF2.mz.nunique()
+
+G=DF2.groupby(MF)
+
+
+
+from matplotlib import pyplot as plt
+plt.plot(DF2["male_h"])

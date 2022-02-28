@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 14 09:43:56 2022
+
+@author: giulianalaspina
+"""
+
+
+import numpy as np
+import pandas as pd
+
+from matplotlib import pyplot as plt
+
+#abbiamo importato le tre librerie fondamentali 
+import os # per parlare CON IL SISTEMA OPERATIVO
+# 3 righe per posizionarci automaticamente 
+# nella stessa directory del file che tiamo
+# editando
+abspath = os.path.abspath("2022_02_14.py") # percorso assoluto di questo script
+dname = os.path.dirname(abspath) # directoy di questo script
+os.chdir(dname) # la directory di lavoro è adesso la stessa dello script
+####
+
+
+
+
+#importare i file
+#pottery = pd.read_csv("Pottery.csv")
+pottery=pd.read_csv('Pottery.csv', on_bad_lines='skip')
+
+pottery.info()
+
+#info statistiche
+pottery.describe()
+
+
+#grafici
+pottery.plot.box() #box plot di tutte le colonne 
+
+#se voglio vedere solo alcune colonne le seleziono così
+pottery[["Fe", "Mg", "Ca", "Na"]].plot.box() #prende solo le colonne che ho inserito
+
+pottery["Na"].plot.box() #per vedere solo il sodio
+
+pottery.hist()
+
+pottery[["Fe","Mg", "Ca", "Na"]].hist()
+
+plt.figure("primo grafico")
+plt.subplot(2, 2, 1)
+plt.title("Al Vs Fe")
+
+plt.plot(pottery["Al"], pottery["Fe"], "ob", markersize=8) 
+
+plt.subplot(2,2,2)
+plt.title("Fe Vs Mg")
+
+plt.plot(pottery["Fe"], pottery["Mg"], "ob", markersize=8)  #x=fe y=mg
+
+#voglio un plot di al vs fe dove per ogni osservazione il colore dipende dal sito da cui proviene
+
+
+#quanti siti?
+pottery["Site"]
+pottery.Site
+pottery.Site.value_counts()
+
+pottery.Site.nunique()
+pottery.Site.unique()
+
+#raggruppiamo per siti
+
+G=pottery.groupby("Site")
+figure("seconda figura")
+p1=pottery[pottey["Site"]=="Llandedyr"]
+p2=pottery[pottey["Site"]=="Caldicot"]
+p3=pottery[pottey["Site"]=="IsleThrons"]
+p4=pottery[pottey["Site"]=="AshleyRails"]
+plt.plot(p1["Al"], p1"Fe", "ob")
+plt.plot(p2["Al"], p2"Fe", "or")
+plt.plot(p3["Al"], p3"Fe", "og")
+
+plt.plot(p4["Al"], p4"Fe", "om")
+
+#creare una leggenda 
+
+plt.legend(pottery.Site.unique())
+
+

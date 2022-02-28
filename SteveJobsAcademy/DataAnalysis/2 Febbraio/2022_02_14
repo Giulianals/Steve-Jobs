@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb 14 09:01:18 2022
+
+@author: giulianalaspina
+"""
+
+import numpy as np
+import pandas as pd
+
+from matplotlib import pyplot as plt
+
+#abbiamo importato le tre librerie fondamentali 
+import os
+
+
+
+abspath = os.path.abspath("2022_02_14.py")
+dname = os.path.dirname(abspath)  # directoy di questo script
+os.chdir(dname)
+
+
+
+
+#importare i file
+pottery=pd.read_csv("Pottery.csv")
+
+pottery.info()
+
+#info statistiche
+pottery.describe()
+
+
+#grafici
+pottery.plot.box() #box plot di tutte le colonne 
+
+#se voglio vedere solo alcune colonne le seleziono così
+pottery[["Fe", "Mg", "Ca", "Na"]].plot.box() #prende solo le colonne che ho inserito
+
+pottery["Na"].plot.box() #per vedere solo il sodio
+
